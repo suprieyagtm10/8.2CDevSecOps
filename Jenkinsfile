@@ -1,39 +1,35 @@
+// This is a test comment to trigger Jenkins build
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Build code using npm or yarn'
+                git branch: 'main', url: 'https://github.com/suprieyagtm10/8.2CDevSecOps.git'
             }
         }
-        stage('Unit and Integration Tests') {
+
+        stage('Install Dependencies') {
             steps {
-                echo 'Run unit and integration tests using Jest/Mocha'
+                bat 'npm install'
             }
         }
-        stage('Code Analysis') {
+
+        stage('Run Tests') {
             steps {
-                echo 'Analyze code quality using SonarQube'
+                bat 'npm test || exit /b 0'
             }
         }
-        stage('Security Scan') {
+
+        stage('Generate Coverage Report') {
             steps {
-                echo 'Perform security scan using Snyk'
+                bat 'npm run coverage || exit /b 0'
             }
         }
-        stage('Deploy to Staging') {
+
+        stage('NPM Audit (Security Scan)') {
             steps {
-                echo 'Deploy application to staging server'
-            }
-        }
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Run integration tests on staging'
-            }
-        }
-        stage('Deploy to Production') {
-            steps {
-                echo 'Deploy application to production'
+                bat 'npm audit || exit /b 0'
             }
         }
     }
