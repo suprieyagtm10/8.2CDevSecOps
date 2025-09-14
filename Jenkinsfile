@@ -1,7 +1,10 @@
 // This is a test comment to trigger Jenkins build
 pipeline {
     agent any
-
+    
+    environment {
+        PATH = "C:\\Program Files\\nodejs\\;${env.PATH}"
+    }
     stages {
         stage('Checkout') {
             steps {
