@@ -51,6 +51,7 @@ pipeline {
             }
             post {
                 always {
+                    echo "Sending email for Run Tests stage..."
                     emailext(
                         subject: "Security Scan Stage: ${currentBuild.currentResult}",
                         body: "The Security Scan stage finished with status: ${currentBuild.currentResult}",
