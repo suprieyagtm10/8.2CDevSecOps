@@ -56,7 +56,7 @@ pipeline {
                         subject: "Security Scan Stage: ${currentBuild.currentResult}",
                         body: "The Security Scan stage finished with status: ${currentBuild.currentResult}",
                         to: 'suprieyagtm10@gmail.com',
-                        from:'supriyagautam2001@gmail.com',
+                        from:'suprieyagtm10@gmail.com',
                         attachLog: true
                     )
                 }
