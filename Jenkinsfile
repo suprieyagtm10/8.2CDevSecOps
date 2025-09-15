@@ -1,7 +1,10 @@
 // This is a test comment to trigger Jenkins build
 pipeline {
     agent any
-    
+
+    tools {
+        nodejs 'node22'   // <-- Use the Node.js installation named "node22"
+    }
     environment {
         PATH = "C:\\Program Files\\nodejs\\;${env.PATH}"
     }
