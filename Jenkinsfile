@@ -1,4 +1,4 @@
-// This is a test comment to trigger an email notification Jenkins 
+// This is the script for Jenkin
 pipeline {
     agent any
 
@@ -29,19 +29,16 @@ pipeline {
             }
             post {
                 always {
+                    echo "Sending email after Run Tests stage..."
                     emailext(
-                        subject: "Test Stage: ${currentBuild.currentResult}",
-                        body: "The Test stage finished with status: ${currentBuild.currentResult}",
+                        subject: "Pipeline Stage: Run Tests - ${currentBuild.currentResult}",
+                        body: """The Run Tests stage finished with status: ${currentBuild.currentResult}
+Check console output at ${env.BUILD_URL}""",
                         to: 'suprieyagtm10@gmail.com',
+                        from: 'suprieyagtm10@gmail.com',
                         attachLog: true
                     )
                 }
-            }
-        }
-
-        stage('Generate Coverage Report') {
-            steps {
-                bat 'npm run coverage || exit /b 0'
             }
         }
 
@@ -51,12 +48,13 @@ pipeline {
             }
             post {
                 always {
-                    echo "Sending email for Run Tests stage..."
+                    echo "Sending email after Security Scan stage..."
                     emailext(
-                        subject: "Security Scan Stage: ${currentBuild.currentResult}",
-                        body: "The Security Scan stage finished with status: ${currentBuild.currentResult}",
+                        subject: "Pipeline Stage: Security Scan - ${currentBuild.currentResult}",
+                        body: """The Security Scan stage finished with status: ${currentBuild.currentResult}
+Check console output at ${env.BUILD_URL}""",
                         to: 'suprieyagtm10@gmail.com',
-                        from:'suprieyagtm10@gmail.com',
+                        from: 'suprieyagtm10@gmail.com',
                         attachLog: true
                     )
                 }
