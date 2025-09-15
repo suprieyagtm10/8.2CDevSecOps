@@ -1,4 +1,4 @@
-// This is a test comment to trigger Jenkins build
+// This is a test comment to trigger an email notification Jenkins build
 pipeline {
     agent any
 
@@ -25,7 +25,17 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npm test || exit /b 0'  
+                bat 'npm test || exit /b 0'
+            }
+            post {
+                always {
+                    emailext(
+                        subject: "Test Stage: ${currentBuild.currentResult}",
+                        body: "The Test stage finished with status: ${currentBuild.currentResult}",
+                        to: 'suprieyagtm10@gmail.com',
+                        attachLog: true
+                    )
+                }
             }
         }
 
@@ -38,6 +48,16 @@ pipeline {
         stage('NPM Audit (Security Scan)') {
             steps {
                 bat 'npm audit || exit /b 0'
+            }
+            post {
+                always {
+                    emailext(
+                        subject: "Security Scan Stage: ${currentBuild.currentResult}",
+                        body: "The Security Scan stage finished with status: ${currentBuild.currentResult}",
+                        to: 'suprieyagtm10@gmail.com',
+                        attachLog: true
+                    )
+                }
             }
         }
 
@@ -55,4 +75,3 @@ pipeline {
         }
     }
 }
-
