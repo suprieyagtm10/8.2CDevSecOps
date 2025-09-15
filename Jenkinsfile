@@ -38,5 +38,11 @@ pipeline {
                 bat 'npm audit || exit /b 0'
             }
         }
+
+        stage('Fix Vulnerabilities') {
+            steps {
+                bat 'npm audit fix'            // for safe fixes
+           }
+       }
     }
 }
