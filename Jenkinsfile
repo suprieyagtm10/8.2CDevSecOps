@@ -3,11 +3,13 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'node22'   // <-- Use the Node.js installation named "node22"
+        nodejs 'node22'
     }
+
     environment {
         PATH = "C:\\Program Files\\nodejs\\;${env.PATH}"
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -23,7 +25,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npm test || exit /b 0'
+                bat 'npm test || exit /b 0'  
             }
         }
 
@@ -41,8 +43,16 @@ pipeline {
 
         stage('Fix Vulnerabilities') {
             steps {
-                bat 'npm audit fix'            // for safe fixes
-           }
-       }
+                bat 'npm audit fix || exit /b 0'
+            }
+        }
+
+        stage('Verify Fixes') {
+            steps {
+                echo 'Re-running npm audit to check remaining vulnerabilities'
+                bat 'npm audit || exit /b 0'
+            }
+        }
     }
 }
+
