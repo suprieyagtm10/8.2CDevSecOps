@@ -35,7 +35,7 @@ pipeline {
                         body: """The Run Tests stage finished with status: ${currentBuild.currentResult}
 Check console output at ${env.BUILD_URL}""",
                         to: 'suprieyagtm10@gmail.com',
-                        from: 'suprieyagtm10@gmail.com',
+
                         attachLog: true
                     )
                 }
@@ -54,7 +54,7 @@ Check console output at ${env.BUILD_URL}""",
                         body: """The Security Scan stage finished with status: ${currentBuild.currentResult}
 Check console output at ${env.BUILD_URL}""",
                         to: 'suprieyagtm10@gmail.com',
-                        from: 'suprieyagtm10@gmail.com',
+        
                         attachLog: true
                     )
                 }
